@@ -1,0 +1,19 @@
+attr	number of different values
+""	151158
+"caseid"	71737
+"state"	51
+"age"	102
+"airbag"	15
+"injury"	7
+"restraint"	15
+"sex"	3
+"inimpact"	24
+"modelyr"	77
+"airbagAvail"	3
+"airbagDeploy"	3
+"Restraint"	3
+"D_injury"	7
+"D_airbagAvail"	3
+"D_airbagDeploy"	3
+"D_Restraint"	3
+"year"	13
