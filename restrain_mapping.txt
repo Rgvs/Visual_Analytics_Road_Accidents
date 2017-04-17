@@ -1,0 +1,13 @@
+0	Blank
+0	Non Used - Vehicle Occupant; Not Applicable
+1	Shoulder Belt
+2	Lap Belt
+3	Lap and Shoulder Belt
+4	Child Safety Seat
+5	Motorcycle Helmet
+6	Bicycle Helmet
+8	Restraint Used - Type Unknown
+13	Safety Belt Used Improperly
+14	Child Safety Seat Used Improperly
+15	Helmets Used Improperly
+99	Unknown

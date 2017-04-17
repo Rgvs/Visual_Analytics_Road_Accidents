@@ -1,0 +1,9 @@
+0	No Injury
+1	Possible Injury
+2	Non-incapacitaing Evident Injury
+3	incapacitaing Injury
+4	Fatal Injury
+5	injured but severity Unknown
+6	diead prior to accident
+8	unKnown
+9	unKnown
