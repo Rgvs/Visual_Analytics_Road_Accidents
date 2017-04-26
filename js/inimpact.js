@@ -45,14 +45,16 @@ var data1 = [];
 d3.csv("./inimpact.csv", function(error, data) {
          data.forEach(function(d) {
             if (+d.Clock < 13){
-                var clock = +d.Clock * Math.PI / 6;
+                var clock = +d.Clock * Math.PI / 2;
                 d.xc = +d["Number"] * Math.sin(clock);
                 d.yc = +d["Number"] * Math.cos(clock);
             }
         });
     var x = d3.scale.linear().range([0, bbox.width]);
     var y = d3.scale.linear().range([bbox.height, 0]);
+    
     limit = 1.2*d3.max(data, function(d) { return +d["Number"]; })
+    
     x.domain([ -limit, limit]);
     y.domain([ -limit, limit]);
     
@@ -95,6 +97,7 @@ d3.csv("./inimpact.csv", function(error, data) {
                 .duration(100)
                 .style("opacity", 0);
         });
+        
 });
 
 
