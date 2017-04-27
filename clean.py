@@ -26,6 +26,9 @@ u = {i:{} for i in range(18)}
 ##	"","caseid","state","age","airbag","injury","restraint","sex","inimpact","modelyr","airbagAvail","airbagDeploy","Restraint","D_injury","D_airbagAvail","D_airbagDeploy","D_Restraint","year"
 
 for d in data[1:]:
+    d[3] = int(d[3]) % 5
+    if d[4] in ["99", "98"]:
+        d[4] = -1
     if d[7] == "9":
         d[7] = random.choice(["1", "2"])
         ##	inimpact
@@ -35,7 +38,22 @@ for d in data[1:]:
             d[8] = "6"
     if (d[8] == "10" or d[8] == "11" or d[8] == "61" or d[8] == "62"):
             d[8] = "9"
+    if (int(d[8]) > 14):
+        d[8] = "15"
+    X = [10, 11, 12, 14, 15, 16]
+    for x in X:
+        #print d[x], "yes"
+        #break
+        if (str(d[x]) == "\"no\""):
+            d[x] = 0
+        elif (str(d[x]) == "\"yes\""):
+            d[x] = 1
+        else:
+            d[x] = 2
+    
+    
 
-with open("FARS2.csv", "w") as fp2:
+with open("FARS4.csv", "w") as fp2:
     writer = csv.writer(fp2)
-    writer.writerows(data)
+    for d in data:
+        writer.writerow(d)
