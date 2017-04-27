@@ -14,17 +14,22 @@ function makeGraphs(error, projectsJson) {
   var impactDim = ndx.dimension(function(d) { return d["\"inimpact\""]; });
   var airbagDim = ndx.dimension(function(d) { return d["\"airbag\""]; });
   var sexDim = ndx.dimension(function(d) { return d["\"sex\""]; });
+  var ageDim = ndx.dimension(function(d) { return d["\"age\""]; });
 
   var dataByYear = yearDim.group();
   var dataByState = stateDim.group();
   var dataByImp = impactDim.group();
   var dataByAirbag = airbagDim.group();
   var dataBySex = sexDim.group();
+  var dataByAge = ageDim.group();
 
   var totalByState = stateDim.group().reduceSum(function(d) {
 		return 1;
 	});
-  var totalByImp = stateDim.group().reduceSum(function(d) {
+  var totalByImp = impactDim.group().reduceSum(function(d) {
+		return 1;
+	});
+  var totalByAge = ageDim.group().reduceSum(function(d) {
 		return 1;
 	});
 
@@ -37,17 +42,24 @@ function makeGraphs(error, projectsJson) {
   minState = 1
   maxState = 51
 
+  minAge = ageDim.bottom(1)[0]["\"age\""]
+  maxAge = ageDim.top(1)[0]["\"age\""]
+
   minImp = impactDim.bottom(1)[0]["\"inimpact\""]
   maxImp = impactDim.top(1)[0]["\"inimpact\""]
 
   minAir = airbagDim.bottom(1)[0]["\"airbag\""]
   maxAir = airbagDim.top(1)[0]["\"airbag\""]
 
+  console.log(minAge)
+  console.log(maxAge)
+
   var timeChart = dc.barChart("#time-chart");
   var stateChart = dc.barChart("#state-chart");
   var sexChart = dc.barChart("#sex-chart");
   var impChart = dc.barChart("#impact-chart");
   var airbagChart = dc.barChart("#airbag-chart");
+  var ageChart = dc.barChart("#age-chart");
 
   timeChart
 		.width(600)
@@ -84,6 +96,18 @@ function makeGraphs(error, projectsJson) {
 		.elasticY(true)
 		.xAxisLabel("Sex")
 		.yAxis().ticks(8);
+
+  ageChart
+    .width(600)
+    .height(160)
+    .margins({top: 10, right: 50, bottom: 30, left: 50})
+    .dimension(ageDim)
+    .group(dataByAge)
+    .transitionDuration(500)
+    .x(d3.scale.linear().domain([minAge, maxAge]))
+    .elasticY(true)
+    .xAxisLabel("Age")
+    .yAxis().ticks(8);
 
   impChart
     .width(600)

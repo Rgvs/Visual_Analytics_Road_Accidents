@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-DBS_NAME = 'visproj2'
+DBS_NAME = 'visproj4'
 COLLECTION_NAME = 'accidents'
 FIELDS = {"": True, "caseid": True ,"state": True ,"age": True ,"airbag": True ,"injury": True ,
     "restraint": True ,"sex": True ,"inimpact": True ,"modelyr": True ,"airbagAvail": True ,"airbagDeploy": True ,
@@ -25,7 +25,7 @@ def index():
 def donorschoose_projects():
     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    #projects = collection.find(projection=FIELDS, limit=5000)
+    #projects = collection.find(projection=FIELDS, limit=10000)
     projects = collection.find(projection=FIELDS)
     # fp = open("FARS2.csv","r")
     #

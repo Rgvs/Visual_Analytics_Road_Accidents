@@ -26,7 +26,10 @@ u = {i:{} for i in range(18)}
 ##	"","caseid","state","age","airbag","injury","restraint","sex","inimpact","modelyr","airbagAvail","airbagDeploy","Restraint","D_injury","D_airbagAvail","D_airbagDeploy","D_Restraint","year"
 
 for d in data[1:]:
-    d[3] = int(d[3]) % 5
+    if(int(d[3]) < 200):
+       d[3] = int(d[3]) / 5
+    else:
+       d[3] = "22"
     if d[4] in ["99", "98"]:
         d[4] = -1
     if d[7] == "9":
@@ -50,8 +53,8 @@ for d in data[1:]:
             d[x] = 1
         else:
             d[x] = 2
-    
-    
+
+
 
 with open("FARS4.csv", "w") as fp2:
     writer = csv.writer(fp2)
