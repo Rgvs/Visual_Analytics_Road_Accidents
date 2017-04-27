@@ -23,22 +23,24 @@ def index():
 
 @app.route("/accidents")
 def donorschoose_projects():
-    # connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
-    # collection = connection[DBS_NAME][COLLECTION_NAME]
-    # projects = collection.find(projection=FIELDS, limit=1000)
-    #projects = collection.find(projection=FIELDS)
-    fp = open("FARS2.csv","r")
-
-    data1 = fp.read().split()
-    data = []
-    for d in data1:
-    	data.append(d.split(","))
+    connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
+    collection = connection[DBS_NAME][COLLECTION_NAME]
+    #projects = collection.find(projection=FIELDS, limit=5000)
+    projects = collection.find(projection=FIELDS)
+    # fp = open("FARS2.csv","r")
+    #
+    # data1 = fp.read().split()
+    # data = []
+    # for d in data1:
+    # 	data.append(d.split(","))
 
     json_projects = []
-    for project in data[1:]:
+    #for project in data[1:]:
+    for project in projects:
         json_projects.append(project)
+    print(json_projects[1:10])
     json_projects = json.dumps(json_projects, default=json_util.default)
-    connection.close()
+    #connection.close()
     return json_projects
 
 if __name__ == "__main__":
