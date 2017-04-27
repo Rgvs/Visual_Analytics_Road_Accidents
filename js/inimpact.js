@@ -50,8 +50,14 @@ d3.csv("./inimpact.csv", function(error, data) {
                 d.yc = +d["Number"] * Math.cos(clock);
             }
         });
-    var x = d3.scale.linear().range([0, bbox.width]);
-    var y = d3.scale.linear().range([bbox.height, 0]);
+    var x = d3.scale.linear().range([50, bbox.width-50]);
+    var y = d3.scale.linear().range([bbox.height-50, 50]);
+    
+    var xAxis = d3.svg.axis().scale(x)
+        .orient("bottom").ticks(10);
+    
+    var yAxis = d3.svg.axis().scale(y)
+        .orient("left").ticks(10);
     
     limit = 1.2*d3.max(data, function(d) { return +d["Number"]; })
     
@@ -83,7 +89,7 @@ d3.csv("./inimpact.csv", function(error, data) {
             div.transition()
                 .duration(100)
                 .style("opacity", .9);
-            div.html( Math.sqrt(d.xc*d.xc + d.yc*d.yc) )
+            div.html( Math.sqrt(d.xc*d.xc + d.yc*d.yc)  )
                 .style("left", (d3.event.pageX + 14) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
                 
@@ -97,7 +103,16 @@ d3.csv("./inimpact.csv", function(error, data) {
                 .duration(100)
                 .style("opacity", 0);
         });
-        
+    
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + bbox.height / 2 + ")")
+        .call(xAxis);
+    
+    svg.append("g")
+        .attr("transform", "translate("+bbox.width/2 +","+ 0 + ")")
+        .attr("class", "y axis")
+        .call(yAxis);
 });
 
 
