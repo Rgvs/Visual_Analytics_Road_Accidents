@@ -37,11 +37,11 @@ function makeGraphs(error, projectsJson) {
   minState = 1
   maxState = 51
 
-  minImp = yearDim.bottom(1)[0]["\"inimpact\""]
-  maxImp = yearDim.top(1)[0]["\"inimpact\""]
+  minImp = impactDim.bottom(1)[0]["\"inimpact\""]
+  maxImp = impactDim.top(1)[0]["\"inimpact\""]
 
-  minAir = yearDim.bottom(1)[0]["\"airbag\""]
-  maxAir = yearDim.top(1)[0]["\"airbag\""]
+  minAir = airbagDim.bottom(1)[0]["\"airbag\""]
+  maxAir = airbagDim.top(1)[0]["\"airbag\""]
 
   var timeChart = dc.barChart("#time-chart");
   var stateChart = dc.barChart("#state-chart");
@@ -80,7 +80,7 @@ function makeGraphs(error, projectsJson) {
 		.dimension(sexDim)
 		.group(dataBySex)
 		.transitionDuration(500)
-		.x(d3.scale.linear().domain([1, 2]))
+		.x(d3.scale.linear().domain([0, 4]))
 		.elasticY(true)
 		.xAxisLabel("Sex")
 		.yAxis().ticks(8);
