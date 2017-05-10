@@ -21,10 +21,11 @@
   </style>
   <body>
     <h1>Visual Data Analytics</h1>
-        <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Number of Accidents
+              Number of Accidents over the Years
             </div>
             <div class="chart-stage">
               <div id="time-chart"></div>
@@ -32,19 +33,23 @@
           </div>
         </div>
 
+      <div class="col-sm-6">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Number of Accidents
+            Number of Accidents by State
           </div>
           <div class="chart-stage">
             <div id="state-chart"></div>
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="row">
+      <div class="col-sm-6">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Number of Accidents
+          Number of Accidents by Sex
         </div>
         <div class="chart-stage">
           <div id="sex-chart"></div>
@@ -52,19 +57,23 @@
       </div>
     </div>
 
+    <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">
-        Number of Accidents
+        Number of Accidents by Age
       </div>
       <div class="chart-stage">
         <div id="age-chart"></div>
       </div>
     </div>
     </div>
+  </div>
 
+  <div class="row">
+    <div class="col-sm-6">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Number of Accidents
+          Number of Accidents based on Impact Location
         </div>
         <div class="chart-stage">
           <div id="impact-chart"></div>
@@ -72,15 +81,17 @@
       </div>
     </div>
 
+    <div class="col-sm-6">
     <div class="chart-wrapper">
       <div class="chart-title">
-        Number of Accidents
+        Number of Accidents across Airbag types
       </div>
       <div class="chart-stage">
         <div id="airbag-chart"></div>
       </div>
     </div>
   </div>
+</div>
 
     <script src="./static/lib/js/jquery.min.js"></script>
     <script src="./static/lib/js/bootstrap.min.js"></script>

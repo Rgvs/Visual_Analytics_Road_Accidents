@@ -68,7 +68,7 @@ function makeGraphs(error, projectsJson) {
 		.dimension(yearDim)
 		.group(dataByYear)
 		.transitionDuration(500)
-		.x(d3.time.scale().domain([minDate, maxDate]))
+		.x(d3.scale.linear().domain([minDate, maxDate]))
 		.elasticY(true)
 		.xAxisLabel("Year")
 		.yAxis().ticks(4);

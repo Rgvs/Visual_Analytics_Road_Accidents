@@ -9,11 +9,11 @@ app = Flask(__name__)
 
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-DBS_NAME = 'visproj4'
+DBS_NAME = 'visproj5'
 COLLECTION_NAME = 'accidents'
-FIELDS = {"": True, "caseid": True ,"state": True ,"age": True ,"airbag": True ,"injury": True ,
-    "restraint": True ,"sex": True ,"inimpact": True ,"modelyr": True ,"airbagAvail": True ,"airbagDeploy": True ,
-    "Restraint": True ,"D_injury": True ,"D_airbagAvail": True, "D_airbagDeploy": True ,"D_Restraint": True ,"year": True}
+#FIELDS = {"": True, "caseid": True ,"state": True ,"age": True ,"airbag": True ,"injury": True ,
+#    "restraint": True ,"sex": True ,"inimpact": True ,"modelyr": True ,"airbagAvail": True ,"airbagDeploy": True ,
+#    "Restraint": True ,"D_injury": True ,"D_airbagAvail": True, "D_airbagDeploy": True ,"D_Restraint": True ,"year": True}
 
 
 @app.route("/")
@@ -25,8 +25,8 @@ def index():
 def donorschoose_projects():
     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    #projects = collection.find(projection=FIELDS, limit=10000)
-    projects = collection.find(projection=FIELDS)
+    #projects = collection.find(limit=10000)
+    projects = collection.find()
     # fp = open("FARS2.csv","r")
     #
     # data1 = fp.read().split()
@@ -40,7 +40,7 @@ def donorschoose_projects():
         json_projects.append(project)
     print(json_projects[1:10])
     json_projects = json.dumps(json_projects, default=json_util.default)
-    #connection.close()
+    connection.close()
     return json_projects
 
 if __name__ == "__main__":
