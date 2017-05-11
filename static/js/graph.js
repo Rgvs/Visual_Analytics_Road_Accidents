@@ -7,15 +7,17 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   console.log(projectsJson)
   var data = projectsJson
-  console.log(data[100]["\"year\""])
+  console.log(data[100])
 
   var ndx = crossfilter(data);
-  var yearDim = ndx.dimension(function(d) { return d["\"year\""]; });
-  var stateDim = ndx.dimension(function(d) { return d["\"state\""]; });
-  var impactDim = ndx.dimension(function(d) { return d["\"inimpact\""]; });
-  var airbagDim = ndx.dimension(function(d) { return d["\"airbag\""]; });
-  var sexDim = ndx.dimension(function(d) { return d["\"sex\""]; });
-  var ageDim = ndx.dimension(function(d) { return d["\"age\""]; });
+  var yearDim = ndx.dimension(function(d) { return d["year"]; });
+  var stateDim = ndx.dimension(function(d) { return d["state"]; });
+  var impactDim = ndx.dimension(function(d) { return d["inimpact"]; });
+  var airbagDim = ndx.dimension(function(d) { return d["airbag"]; });
+  var sexDim = ndx.dimension(function(d) { return d["sex"]; });
+  var ageDim = ndx.dimension(function(d) { return d["age"]; });
+  var restraintDim = ndx.dimension(function(d) { return d["restraint"]; });
+  var injuryDim = ndx.dimension(function(d) { return d["injury"]; });
 
   var dataByYear = yearDim.group();
   var dataByState = stateDim.group();
@@ -23,6 +25,8 @@ function makeGraphs(error, projectsJson, statesJson) {
   var dataByAirbag = airbagDim.group();
   var dataBySex = sexDim.group();
   var dataByAge = ageDim.group();
+  var dataByRestraint = restraintDim.group();
+  var dataByInjury = injuryDim.group();
 
   var totalByState = stateDim.group().reduceSum(function(d) {
 		return 1;
@@ -45,20 +49,20 @@ function makeGraphs(error, projectsJson, statesJson) {
   console.log(totalByState)
   console.log(totalByImp)
   console.log(yearDim)
-  minDate = yearDim.bottom(1)[0]["\"year\""]
-  maxDate = yearDim.top(1)[0]["\"year\""]
+  minDate = yearDim.bottom(1)[0]["year"]
+  maxDate = yearDim.top(1)[0]["year"]
 
   minState = 1
   maxState = 51
 
-  minAge = ageDim.bottom(1)[0]["\"age\""]
-  maxAge = ageDim.top(1)[0]["\"age\""]
+  minAge = ageDim.bottom(1)[0]["age"]
+  maxAge = ageDim.top(1)[0]["age"]
 
-  minImp = impactDim.bottom(1)[0]["\"inimpact\""]
-  maxImp = impactDim.top(1)[0]["\"inimpact\""]
+  minImp = impactDim.bottom(1)[0]["inimpact"]
+  maxImp = impactDim.top(1)[0]["inimpact"]
 
-  minAir = airbagDim.bottom(1)[0]["\"airbag\""]
-  maxAir = airbagDim.top(1)[0]["\"airbag\""]
+  minAir = airbagDim.bottom(1)[0]["airbag"]
+  maxAir = airbagDim.top(1)[0]["airbag"]
 
   console.log(minAge)
   console.log(maxAge)
@@ -73,6 +77,8 @@ function makeGraphs(error, projectsJson, statesJson) {
   var ageChart = dc.barChart("#age-chart");
   var usChart = dc.geoChoroplethChart("#us-chart");
   var totalAccidentsND = dc.numberDisplay("#total-accidents-nd");
+  var resChart = dc.rowChart("#restraint-chart");
+  var injChart = dc.rowChart("#injury-chart");
 
   totalAccidentsND
 		.formatNumber(d3.format("d"))
@@ -163,6 +169,20 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .dimension(airbagDim)
     .group(dataByAirbag)
+    .xAxis().ticks(4);
+
+  resChart
+    .width(300)
+    .height(250)
+    .dimension(restraintDim)
+    .group(dataByRestraint)
+    .xAxis().ticks(4);
+
+  injChart
+    .width(300)
+    .height(250)
+    .dimension(injuryDim)
+    .group(dataByInjury)
     .xAxis().ticks(4);
 
   usChart.width(1000)
