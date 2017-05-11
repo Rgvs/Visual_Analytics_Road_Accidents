@@ -65,6 +65,8 @@ for d in data[1:]:
             d[8] = "9"
     if (int(d[8]) > 14):
         d[8] = random.choice([3, 6, 9, 12])
+    if (int (d[9]) == 9999):
+        d[9] = random.randint(1984, 2010)
     X = [10, 11, 12, 14, 15, 16]
     for x in X:
         #print d[x], "yes"
