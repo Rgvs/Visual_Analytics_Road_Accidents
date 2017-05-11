@@ -18,6 +18,7 @@ function makeGraphs(error, projectsJson, statesJson) {
   var ageDim = ndx.dimension(function(d) { return d["age"]; });
   var restraintDim = ndx.dimension(function(d) { return d["restraint"]; });
   var injuryDim = ndx.dimension(function(d) { return d["injury"]; });
+  var modelyrDim = ndx.dimension(function(d) { return d["modelyr"]; });
 
   var dataByYear = yearDim.group();
   var dataByState = stateDim.group();
@@ -27,6 +28,7 @@ function makeGraphs(error, projectsJson, statesJson) {
   var dataByAge = ageDim.group();
   var dataByRestraint = restraintDim.group();
   var dataByInjury = injuryDim.group();
+  var dataByModyear = modelyrDim.group();
 
   var totalByState = stateDim.group().reduceSum(function(d) {
 		return 1;
@@ -52,6 +54,12 @@ function makeGraphs(error, projectsJson, statesJson) {
   minDate = yearDim.bottom(1)[0]["year"]
   maxDate = yearDim.top(1)[0]["year"]
 
+  minMDate = modelyrDim.bottom(1)[0]["modelyr"]
+  maxMDate = modelyrDim.top(1)[0]["modelyr"]
+
+  console.log(minMDate)
+  console.log(maxMDate)
+
   minState = 1
   maxState = 51
 
@@ -68,10 +76,11 @@ function makeGraphs(error, projectsJson, statesJson) {
   console.log(maxAge)
 
   var timeChart = dc.barChart("#time-chart");
-  var stateChart = dc.barChart("#state-chart");
-  var sexChart = dc.barChart("#sex-chart");
+  var modChart = dc.barChart("#mod-chart");
+  // var sexChart = dc.barChart("#sex-chart");
+  var sexChart = dc.pieChart("#sex-chart");
   // var impChart = dc.barChart("#impact-chart");
-  //var airbagChart = dc.barChart("#airbag-chart");
+  // var airbagChart = dc.barChart("#airbag-chart");
   var impChart = dc.rowChart("#impact-chart");
   var airbagChart = dc.rowChart("#airbag-chart");
   var ageChart = dc.barChart("#age-chart");
@@ -98,29 +107,41 @@ function makeGraphs(error, projectsJson, statesJson) {
 		.xAxisLabel("Year")
 		.yAxis().ticks(4);
 
-  stateChart
-		.width(600)
-		.height(160)
-		.margins({top: 10, right: 50, bottom: 30, left: 50})
-		.dimension(stateDim)
-		.group(totalByState)
-		.transitionDuration(500)
-		.x(d3.scale.linear().domain([minState, maxState]))
-		.elasticY(true)
-		.xAxisLabel("State")
-		.yAxis().ticks(8);
+  modChart
+    .width(600)
+    .height(160)
+    .margins({top: 10, right: 50, bottom: 30, left: 50})
+    .dimension(modelyrDim)
+    .group(dataByModyear)
+    .transitionDuration(500)
+    .x(d3.scale.linear().domain([minMDate, maxMDate]))
+    .elasticY(true)
+    .xAxisLabel("Model Year")
+    .yAxis().ticks(4);
+  //
+  // stateChart
+	// 	.width(600)
+	// 	.height(160)
+	// 	.margins({top: 10, right: 50, bottom: 30, left: 50})
+	// 	.dimension(stateDim)
+	// 	.group(totalByState)
+	// 	.transitionDuration(500)
+	// 	.x(d3.scale.linear().domain([minState, maxState]))
+	// 	.elasticY(true)
+	// 	.xAxisLabel("State")
+	// 	.yAxis().ticks(8);
 
-  sexChart
-		.width(600)
-		.height(160)
-		.margins({top: 10, right: 50, bottom: 30, left: 50})
-		.dimension(sexDim)
-		.group(dataBySex)
-		.transitionDuration(500)
-		.x(d3.scale.linear().domain([0, 4]))
-		.elasticY(true)
-		.xAxisLabel("Sex")
-		.yAxis().ticks(8);
+  // sexChart
+	// 	.width(600)
+	// 	.height(160)
+	// 	.margins({top: 10, right: 50, bottom: 30, left: 50})
+	// 	.dimension(sexDim)
+	// 	.group(dataBySex)
+	// 	.transitionDuration(500)
+	// 	.x(d3.scale.linear().domain([0, 4]))
+	// 	.elasticY(true)
+	// 	.xAxisLabel("Sex")
+	// 	.yAxis().ticks(8);
 
   ageChart
     .width(600)
@@ -133,6 +154,23 @@ function makeGraphs(error, projectsJson, statesJson) {
     .elasticY(true)
     .xAxisLabel("Age")
     .yAxis().ticks(8);
+
+sMap = {1: "Male", 2: "Female"}
+
+  sexChart
+    .width(600)
+    .height(160)
+    .slicesCap(4)
+    .innerRadius(30)
+    .dimension(sexDim)
+    .group(dataBySex)
+    .legend(dc.legend())
+    // workaround for #703: not enough data is accessible through .label() to display percentages
+    .on('pretransition', function(chart) {
+        chart.selectAll('text.pie-slice').text(function(d) {
+            return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
+        })
+    });
 
   // impChart
   //   .width(600)
@@ -151,6 +189,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .dimension(impactDim)
     .group(dataByImp)
+    .elasticX(true)
     .xAxis().ticks(4);
 
   // airbagChart
@@ -169,6 +208,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .dimension(airbagDim)
     .group(dataByAirbag)
+    .elasticX(true)
     .xAxis().ticks(4);
 
   resChart
@@ -176,6 +216,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .dimension(restraintDim)
     .group(dataByRestraint)
+    .elasticX(true)
     .xAxis().ticks(4);
 
   injChart
@@ -183,12 +224,14 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .dimension(injuryDim)
     .group(dataByInjury)
+    .elasticX(true)
     .xAxis().ticks(4);
 
   usChart.width(1000)
 		.height(330)
 		.dimension(stateDim)
 		.group(totalByState)
+    //.colors(d3.scale.category20b())
 		.colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
 		.colorDomain([0, max_state])
 		.overlayGeoJson(statesJson["features"], "state", function (d) {
