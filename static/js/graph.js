@@ -45,20 +45,19 @@ function makeGraphs(error, projectsJson, statesJson) {
   console.log(totalAccidents)
 
   var max_state = totalByState.top(1)[0].value;
-  console.log(max_state)
-  console.log(totalByState.top(5))
-
-  console.log(totalByState)
-  console.log(totalByImp)
-  console.log(yearDim)
+  //console.log(max_state)
+  
+  //console.log(totalByState)
+  //console.log(totalByImp)
+  //console.log(yearDim)
   minDate = yearDim.bottom(1)[0]["year"]
   maxDate = yearDim.top(1)[0]["year"]
 
   minMDate = modelyrDim.bottom(1)[0]["modelyr"]
   maxMDate = modelyrDim.top(1)[0]["modelyr"]
 
-  console.log(minMDate)
-  console.log(maxMDate)
+  //console.log(minMDate)
+  //console.log(maxMDate)
 
   minState = 1
   maxState = 51
@@ -72,8 +71,8 @@ function makeGraphs(error, projectsJson, statesJson) {
   minAir = airbagDim.bottom(1)[0]["airbag"]
   maxAir = airbagDim.top(1)[0]["airbag"]
 
-  console.log(minAge)
-  console.log(maxAge)
+  //console.log(minAge)
+  //console.log(maxAge)
 
   var timeChart = dc.barChart("#time-chart");
   var modChart = dc.barChart("#mod-chart");
@@ -242,7 +241,7 @@ sMap = {1: "Male", 2: "Female"}
     				.scale(600)
     				.translate([340, 150]))
 		.title(function (p) {
-      console.log(p)
+      //console.log(p)
       console.log(statesJson["features"].findIndex(x => x.properties.name==p["key"]))
 			return "State: " + p["key"]
 					+ "\n"

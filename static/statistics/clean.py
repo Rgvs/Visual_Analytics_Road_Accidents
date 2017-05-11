@@ -1,7 +1,7 @@
 import csv
 import random
 
-fp = open("FARS.csv","r")
+fp = open("static/data/FARS4.csv","r")
 
 data1 = fp.read().split()
 data = []
@@ -78,9 +78,7 @@ for d in data[1:]:
         else:
             d[x] = 2
 
-
-
-with open("FARS_clean.csv", "w") as fp2:
-    writer = csv.writer(fp2)
+with open("static/data/FARS4_clean.csv", "w") as fp2:
+    writer = csv.writer(fp2, lineterminator='\n')
     for d in data:
         writer.writerow(d)
