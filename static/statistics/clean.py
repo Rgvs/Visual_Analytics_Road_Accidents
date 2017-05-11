@@ -29,9 +29,21 @@ for d in data[1:]:
     if(int(d[3]) < 200):
        d[3] = int(int(d[3]) / 5)
     else:
-       d[3] = "22"
+       d[3] = random.randint(0,20)
     if d[4] in ["99", "98"]:
         d[4] = -1
+    if d[4] in ["31", "32"]:
+        d[4] = "30"
+    if d[4] in ["28", "29"]:
+        d[4] = "20"
+    if d[4] in ["3", "7", "8"]:
+        d[4] = "9"
+    if int(d[5]) > 4 :
+        d[5] = random.randint(1,4)
+    if d[6] in ["1", "2", "7", "8"]:
+        d[6] = 3
+    if int(d[6]) > 9:
+        d[6] = 9
     if d[7] == "9":
         d[7] = random.choice(["1", "2"])
         ##	inimpact
@@ -42,7 +54,7 @@ for d in data[1:]:
     if (d[8] == "10" or d[8] == "11" or d[8] == "61" or d[8] == "62"):
             d[8] = "9"
     if (int(d[8]) > 14):
-        d[8] = "15"
+        d[8] = random.choice([3, 6, 9, 12])
     X = [10, 11, 12, 14, 15, 16]
     for x in X:
         #print d[x], "yes"
@@ -56,7 +68,7 @@ for d in data[1:]:
 
 
 
-with open("FARS4.csv", "w") as fp2:
+with open("FARS_clean.csv", "w") as fp2:
     writer = csv.writer(fp2)
     for d in data:
         writer.writerow(d)
