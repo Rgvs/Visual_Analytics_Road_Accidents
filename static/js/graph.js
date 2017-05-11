@@ -1,8 +1,9 @@
 queue()
     .defer(d3.json, "/accidents")
+    .defer(d3.json, "static/data/us-states.json")
     .await(makeGraphs);
 
-function makeGraphs(error, projectsJson) {
+function makeGraphs(error, projectsJson, statesJson) {
 
   console.log(projectsJson)
   var data = projectsJson
@@ -26,12 +27,20 @@ function makeGraphs(error, projectsJson) {
   var totalByState = stateDim.group().reduceSum(function(d) {
 		return 1;
 	});
+  //var totalByState = stateDim.group().reduceCount()
   var totalByImp = impactDim.group().reduceSum(function(d) {
 		return 1;
 	});
   var totalByAge = ageDim.group().reduceSum(function(d) {
 		return 1;
 	});
+
+  var totalAccidents = ndx.groupAll();
+  console.log(totalAccidents)
+
+  var max_state = totalByState.top(1)[0].value;
+  console.log(max_state)
+  console.log(totalByState.top(5))
 
   console.log(totalByState)
   console.log(totalByImp)
@@ -57,9 +66,19 @@ function makeGraphs(error, projectsJson) {
   var timeChart = dc.barChart("#time-chart");
   var stateChart = dc.barChart("#state-chart");
   var sexChart = dc.barChart("#sex-chart");
-  var impChart = dc.barChart("#impact-chart");
-  var airbagChart = dc.barChart("#airbag-chart");
+  // var impChart = dc.barChart("#impact-chart");
+  //var airbagChart = dc.barChart("#airbag-chart");
+  var impChart = dc.rowChart("#impact-chart");
+  var airbagChart = dc.rowChart("#airbag-chart");
   var ageChart = dc.barChart("#age-chart");
+  var usChart = dc.geoChoroplethChart("#us-chart");
+  var totalAccidentsND = dc.numberDisplay("#total-accidents-nd");
+
+  totalAccidentsND
+		.formatNumber(d3.format("d"))
+		.valueAccessor(function(d){return d; })
+		.group(totalAccidents)
+		.formatNumber(d3.format(".3s"));
 
   timeChart
 		.width(600)
@@ -78,7 +97,7 @@ function makeGraphs(error, projectsJson) {
 		.height(160)
 		.margins({top: 10, right: 50, bottom: 30, left: 50})
 		.dimension(stateDim)
-		.group(dataByState)
+		.group(totalByState)
 		.transitionDuration(500)
 		.x(d3.scale.linear().domain([minState, maxState]))
 		.elasticY(true)
@@ -109,29 +128,63 @@ function makeGraphs(error, projectsJson) {
     .xAxisLabel("Age")
     .yAxis().ticks(8);
 
+  // impChart
+  //   .width(600)
+  //   .height(160)
+  //   .margins({top: 10, right: 50, bottom: 30, left: 50})
+  //   .dimension(impactDim)
+  //   .group(dataByImp)
+  //   .transitionDuration(500)
+  //   .x(d3.scale.linear().domain([minImp, maxImp]))
+  //   .elasticY(true)
+  //   .xAxisLabel("Impact")
+  //   .yAxis().ticks(8);
+
   impChart
-    .width(600)
-    .height(160)
-    .margins({top: 10, right: 50, bottom: 30, left: 50})
+    .width(300)
+    .height(250)
     .dimension(impactDim)
     .group(dataByImp)
-    .transitionDuration(500)
-    .x(d3.scale.linear().domain([minImp, maxImp]))
-    .elasticY(true)
-    .xAxisLabel("Impact")
-    .yAxis().ticks(8);
+    .xAxis().ticks(4);
 
+  // airbagChart
+	// 	.width(600)
+	// 	.height(160)
+	// 	.margins({top: 10, right: 50, bottom: 30, left: 50})
+	// 	.dimension(airbagDim)
+	// 	.group(dataByAirbag)
+	// 	.transitionDuration(500)
+	// 	.x(d3.scale.linear().domain([minAir, maxAir]))
+	// 	.elasticY(true)
+	// 	.xAxisLabel("Airbag")
+	// 	.yAxis().ticks(8);
   airbagChart
-		.width(600)
-		.height(160)
-		.margins({top: 10, right: 50, bottom: 30, left: 50})
-		.dimension(airbagDim)
-		.group(dataByAirbag)
-		.transitionDuration(500)
-		.x(d3.scale.linear().domain([minAir, maxAir]))
-		.elasticY(true)
-		.xAxisLabel("Airbag")
-		.yAxis().ticks(8);
+    .width(300)
+    .height(250)
+    .dimension(airbagDim)
+    .group(dataByAirbag)
+    .xAxis().ticks(4);
+
+  usChart.width(1000)
+		.height(330)
+		.dimension(stateDim)
+		.group(totalByState)
+		.colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
+		.colorDomain([0, max_state])
+		.overlayGeoJson(statesJson["features"], "state", function (d) {
+      //console.log(d)
+      return d.properties.name;
+		})
+		.projection(d3.geo.albersUsa()
+    				.scale(600)
+    				.translate([340, 150]))
+		.title(function (p) {
+      console.log(p)
+      console.log(statesJson["features"].findIndex(x => x.properties.name==p["key"]))
+			return "State: " + p["key"]
+					+ "\n"
+					+ "Total Accidents: " + Math.round(p["value"]) + " $";
+		})
 
   dc.renderAll();
 };

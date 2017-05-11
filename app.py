@@ -25,8 +25,8 @@ def index():
 def donorschoose_projects():
     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    #projects = collection.find(limit=10000)
-    projects = collection.find()
+    projects = collection.find(limit=10000)
+    #projects = collection.find()
     # fp = open("FARS2.csv","r")
     #
     # data1 = fp.read().split()

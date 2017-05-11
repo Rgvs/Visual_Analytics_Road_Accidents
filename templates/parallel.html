@@ -1,41 +1,45 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Parallel</title>
+    <script type="text/javascript" src="../static/lib/js/d3.js"></script>
+  </head>
+  <style>
+  svg {
+    font: 10px sans-serif;
+  }
 
-svg {
-  font: 10px sans-serif;
-}
+  .background path {
+    fill: none;
+    stroke: #ddd;
+    shape-rendering: crispEdges;
+  }
 
-.background path {
-  fill: none;
-  stroke: #ddd;
-  shape-rendering: crispEdges;
-}
+  .foreground path {
+    fill: none;
+    stroke: steelblue;
+  }
 
-.foreground path {
-  fill: none;
-  stroke: steelblue;
-}
+  .brush .extent {
+    fill-opacity: .3;
+    stroke: #fff;
+    shape-rendering: crispEdges;
+  }
 
-.brush .extent {
-  fill-opacity: .3;
-  stroke: #fff;
-  shape-rendering: crispEdges;
-}
+  .axis line,
+  .axis path {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
 
-.axis line,
-.axis path {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis text {
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-  cursor: move;
-}
-
-</style>
-<body>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="../static/js/parallel.js"></script>
+  .axis text {
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    cursor: move;
+  }
+  </style>
+  <body>
+    <script type="text/javascript" src="../static/js/parallel.js"></script>
+  </body>
+</html>
