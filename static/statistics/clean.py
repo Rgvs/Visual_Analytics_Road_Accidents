@@ -1,7 +1,7 @@
 import csv
 import random
 
-fp = open("./static/data/FARS4.csv","r")
+fp = open("./static/data/FARS.csv","r")
 
 data1 = fp.read().split()
 data = []
@@ -80,7 +80,18 @@ for d in data[1:]:
         else:
             d[x] = 2
 
-with open("static/data/FARS4_clean.csv", "w") as fp2:
+new_data = []
+
+for d in data:
+	d1 = []
+	for i in d:
+		if(isinstance( i, int )):
+			d1.append(i)
+		else:
+			d1.append(i.replace("\"", ""))
+	new_data.append(d1)
+
+with open("static/data/FARS_clean.csv", "w") as fp2:
     writer = csv.writer(fp2, lineterminator='\n')
-    for d in data:
+    for d in new_data:
         writer.writerow(d)

@@ -187,7 +187,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   impChart
     .width(300)
-    .height(250)
+    .height(200)
     .dimension(impactDim)
     .group(dataByImp)
     .elasticX(true)
@@ -206,7 +206,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 	// 	.yAxis().ticks(8);
   airbagChart
     .width(300)
-    .height(250)
+    .height(200)
     .dimension(airbagDim)
     .group(dataByAirbag)
     .elasticX(true)
@@ -214,7 +214,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   resChart
     .width(300)
-    .height(250)
+    .height(200)
     .dimension(restraintDim)
     .group(dataByRestraint)
     .elasticX(true)
@@ -222,7 +222,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   injChart
     .width(300)
-    .height(250)
+    .height(200)
     .dimension(injuryDim)
     .group(dataByInjury)
     .elasticX(true)
