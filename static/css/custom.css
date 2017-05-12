@@ -1,5 +1,10 @@
 #total-accidents-nd {
-    font-size: 64px;
+    font-size: 50pt;
+    text-align: center;
+    line-height: normal;
+  }
+#total-deaths-nd {
+    font-size: 50pt;
     text-align: center;
     line-height: normal;
   }

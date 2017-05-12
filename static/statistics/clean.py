@@ -60,9 +60,9 @@ for d in data[1:]:
         d[4] = "20"
     if d[4] in ["3", "7", "8"]:
         d[4] = "9"
-    
+
     d[4] = airbag[d[4]]
-    
+
     if int(d[5]) > 4 :
         d[5] = random.randint(1,4)
     d[5] = injury[str(d[5])]
@@ -75,7 +75,7 @@ for d in data[1:]:
         d[7] = random.choice(["1", "2"])
         ##	inimpact
     d[7] = sex[d[7]]
-    
+
     if (d[8] == "1" or d[8] == "2" or d[8] == "81" or d[8] == "82"):
             d[8] = "3"
     if (d[8] == "4" or d[8] == "5" or d[8] == "7" or d[8] == "8" or d[8] == "63" or d[8] == "83"):
@@ -111,7 +111,7 @@ for d in data:
 			d1.append(i.replace("\"", ""))
 	new_data.append(d1)
 
-with open("static/data/FARS_clean.csv", "w") as fp2:
+with open("static/data/FARS_clean2.csv", "w") as fp2:
     writer = csv.writer(fp2, lineterminator='\n')
     for d in new_data:
         writer.writerow(d)

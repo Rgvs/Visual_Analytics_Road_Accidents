@@ -17,10 +17,15 @@
   <style>
     body {
       font: 11px sans-serif;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
   </style>
   <body>
-    <h1>Visual Data Analytics - Analysis of Road Accidents from 1984-2010</h1>
+    <h1><b>Visual Data Analytics - Analysis of Road Accidents from 1998-2010<b></h1>
     <a href="javascript:dc.filterAll(); dc.renderAll();"><h4>Reset All</h4></a>
       <div class="row">
         <div class="col-sm-7">
@@ -29,7 +34,7 @@
           <div class="col-sm-9">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Number of Accidents over the Years
+              <b>Number of Accidents over the Years<b>
             </div>
             <div class="chart-stage">
               <div id="time-chart"></div>
@@ -40,10 +45,18 @@
         <div class="col-sm-3">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Total Accidents
+              <b>Total Accidents<b>
             </div>
             <div class="chart-stage">
               <div id="total-accidents-nd"></div>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              <b>Total Deaths<b>
+            </div>
+            <div class="chart-stage">
+              <div id="total-deaths-nd"></div>
             </div>
           </div>
         </div>
@@ -54,7 +67,7 @@
           <div class="col-sm-6">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Number of Accidents by Car Model Years
+              <b>Number of Accidents by Car Model Years<b>
             </div>
             <div class="chart-stage">
               <div id="mod-chart"></div>
@@ -65,7 +78,7 @@
           <div class="col-sm-6">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Number of Accidents by Age
+              <b>Number of Accidents by Age<b>
             </div>
             <div class="chart-stage">
               <div id="age-chart"></div>
@@ -79,7 +92,7 @@
         <div class="col-sm-5">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Distribution of Accidents
+              <b>Distribution of Accidents<b>
             </div>
             <div class="chart-stage">
               <div id="us-chart"></div>
@@ -93,7 +106,7 @@
       <div class="col-sm-2">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Restraint types
+            <b>Restraint types<b>
           </div>
           <div class="chart-stage">
             <div id="restraint-chart"></div>
@@ -104,7 +117,7 @@
       <div class="col-sm-2">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Airbag Types
+            <b>Airbag Types<b>
           </div>
           <div class="chart-stage">
             <div id="airbag-chart"></div>
@@ -115,7 +128,7 @@
       <div class="col-sm-3">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Number of Accidents by Sex
+          <b>Number of Accidents by Sex<b>
         </div>
         <div class="chart-stage">
           <div id="sex-chart"></div>
@@ -126,7 +139,7 @@
     <div class="col-sm-3">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Injury Severity Spread
+          <b>Injury Severity Spread<b>
         </div>
         <div class="chart-stage">
           <div id="injury-chart"></div>
@@ -137,7 +150,7 @@
     <div class="col-sm-2">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Impact Locations
+          <b>Impact Locations<b>
         </div>
         <div class="chart-stage">
           <div id="impact-chart"></div>

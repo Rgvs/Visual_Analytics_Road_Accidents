@@ -43,7 +43,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 	});
 
   var totalAccidents = ndx.groupAll();
-  var totalDeaths = injuryDim.top(1)[0].value;
+  var totalDeaths = ndx.groupAll().reduceSum(function(d){if(d["injury"] == "5.Fatal") return 1; else return 0;});
   console.log(totalAccidents)
 
   var max_state = totalByState.top(1)[0].value;
@@ -99,15 +99,15 @@ function makeGraphs(error, projectsJson, statesJson) {
 		.formatNumber(d3.format("d"))
 		.valueAccessor(function(d){return d; })
 		.group(totalAccidents)
-		.formatNumber(d3.format(".4s"));
+		.formatNumber(d3.format(".3s"));
 
-  totalAccidentsND
+  totalDeathsND
     .width(600)
     .height(200)
 		.formatNumber(d3.format("d"))
 		.valueAccessor(function(d){return d; })
 		.group(totalDeaths)
-		.formatNumber(d3.format(".4s"));
+		.formatNumber(d3.format(".3s"));
 
   timeChart
 		.width(700)
@@ -119,6 +119,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 		.x(d3.scale.linear().domain([minDate, maxDate]))
 		.elasticY(true)
 		.xAxisLabel("Year")
+    .yAxisLabel("Accidents")
 		.yAxis().ticks(4);
 
   modChart
@@ -131,6 +132,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .x(d3.scale.linear().domain([minMDate, maxMDate]))
     .elasticY(true)
     .xAxisLabel("Model Year")
+    .yAxisLabel("Accidents")
     .yAxis().ticks(4);
   //
   // stateChart
@@ -169,12 +171,13 @@ function makeGraphs(error, projectsJson, statesJson) {
     //.xUnits(dc.units.fp.precision(binwidth))
     .elasticY(true)
     .xAxisLabel("Age")
+    .yAxisLabel("Accidents")
     .yAxis().ticks(8);
 
   sMap = {1: "Male", 2: "Female"}
 
   sexChart
-    .width(300)
+    .width(425)
     .height(250)
     .slicesCap(4)
     .innerRadius(40)
@@ -206,6 +209,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .dimension(impactDim)
     .group(dataByImp)
     .elasticX(true)
+    //.xAxisLabel("Accidents")
     .xAxis().ticks(4);
 
   // airbagChart
@@ -225,6 +229,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .dimension(airbagDim)
     .group(dataByAirbag)
     .elasticX(true)
+    //.xAxisLabel("Accidents")
     .xAxis().ticks(4);
 
   resChart
@@ -233,6 +238,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .dimension(restraintDim)
     .group(dataByRestraint)
     .elasticX(true)
+    //.xAxisLabel("Accidents")
     .xAxis().ticks(4);
 
   // injChart
@@ -244,7 +250,7 @@ function makeGraphs(error, projectsJson, statesJson) {
   //   .xAxis().ticks(4);
 
   injChart
-    .width(300)
+    .width(425)
     .height(250)
     .slicesCap(6)
     .innerRadius(40)
