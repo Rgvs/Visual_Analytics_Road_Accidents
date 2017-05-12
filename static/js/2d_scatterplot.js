@@ -32,7 +32,7 @@ var svg = d3.select("body")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", 
+        .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
 var file_name = ""
@@ -40,22 +40,22 @@ var file_name = ""
 
 switch(sample_type + 2*plot_type) {
     case 0:
-        file_name = "data/tr_data.csv";
+        file_name = "./static/data/tr_data.csv";
         break;
     case 1:
-        file_name = "data/ts_data.csv";
+        file_name = "./static/data/ts_data.csv";
         break;
     case 2:
-        file_name = "data/mr_data.csv";
+        file_name = "./static/data/mr_data.csv";
         break;
     case 3:
-        file_name = "data/ms_data.csv";
+        file_name = "./static/data/ms_data.csv";
         break;
     case 4:
-        file_name = "data/mrc_data.csv";
+        file_name = "./static/data/mrc_data.csv";
         break;
     case 5:
-        file_name = "data/msc_data.csv";
+        file_name = "./static/data/msc_data.csv";
         break;
 }
 
@@ -71,14 +71,14 @@ d3.csv(file_name, function(error, data) {
     x.domain([1.1*d3.min(data, function(d) { return d["Component 1"]; }), 1.1*d3.max(data, function(d) { return d["Component 1"]; })]);
     y.domain([1.1*d3.min(data, function(d) { return d["Component 2"]; }), 1.1*d3.max(data, function(d) { return d["Component 2"]; })]);
 
-    
+
     // Add the scatterplot
     svg.selectAll("dot")
         .data(data)
     .enter().append("circle")
         .attr("r", 4)
         .attr("fill", "steelblue")
-        .attr("cx", function(d) { return x(d["Component 1"]); }) 
+        .attr("cx", function(d) { return x(d["Component 1"]); })
         .attr("cy", function(d) { return y(d["Component 2"]); })
         .style("opacity", 0.7)
         .on("mouseover", function(d) {
@@ -109,14 +109,14 @@ d3.csv(file_name, function(error, data) {
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
-    
+
     svg.append("text")
         .attr("class", "xlabel")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
         .attr("y", height + margin.bottom )
         .text("Component 1");
-    
+
     svg.append("text")
         .attr("class", "xlabel")
         .attr("text-anchor", "middle")
@@ -125,7 +125,7 @@ d3.csv(file_name, function(error, data) {
         .style("stroke", "#000")
         .style("font", "16px times")
         .text("2D scatterplot");
-    
+
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);

@@ -176,20 +176,24 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   sMap = {1: "Male", 2: "Female"}
 
+  // var colorScale = d3.scale.ordinal().domain(["Male", "Female"])
+  //                                     .range(["#2200ff", "#ff0022"]);
+
   sexChart
     .width(425)
     .height(250)
     .slicesCap(4)
     .innerRadius(40)
+    .colors(d3.scale.ordinal().range(["#e6550d", "#3182bd"]))
     .dimension(sexDim)
     .group(dataBySex)
     .legend(dc.legend())
-    // workaround for #703: not enough data is accessible through .label() to display percentages
     .on('pretransition', function(chart) {
         chart.selectAll('text.pie-slice').text(function(d) {
             return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
         })
     });
+  //sexChart.colors(function(d){ return colorScale(d.data.key); });
 
   // impChart
   //   .width(600)
@@ -254,6 +258,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .height(250)
     .slicesCap(6)
     .innerRadius(40)
+    .colors(d3.scale.ordinal().range(["#C6DBEF", "#9ECAE1", "#6baed6", "#3182bd", "#e6550d"]))
     .dimension(injuryDim)
     .group(dataByInjury)
     .legend(dc.legend())
@@ -287,4 +292,18 @@ function makeGraphs(error, projectsJson, statesJson) {
 		})
 
   dc.renderAll();
+
+  function AddXAxis(chartToUpdate, displayText) {
+      chartToUpdate.svg()
+          .append("text")
+          .attr("class", "x-axis-label")
+          .attr("text-anchor", "middle")
+          .attr("x", chartToUpdate.width() / 2)
+          .attr("y", chartToUpdate.height())
+          .text(displayText);
+  }
+  AddXAxis(resChart, "Accidents");
+  AddXAxis(impChart, "Accidents");
+  AddXAxis(airbagChart, "Accidents");
+
 };

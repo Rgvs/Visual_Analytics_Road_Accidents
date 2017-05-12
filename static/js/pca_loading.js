@@ -3,13 +3,13 @@ var margin = {top: 50, right: 20, bottom: 50, left: 70},
     width = 800 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-    
+
 var svg = d3.select("body")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", 
+        .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
 var x = d3.scale.ordinal().rangeRoundBands([0, width], .5);
@@ -24,20 +24,20 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
     .ticks(10);
-    
+
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
 var file_name = ""
-if (sample_type == 0) file_name = "data/r_sp.csv"; else file_name = "data/s_sp.csv";
+if (sample_type == 0) file_name = "./static/data/r_sp.csv"; else file_name = "./static/data/s_sp.csv";
 d3.csv(file_name, function(error, data) {
 
     data.forEach(function(d) {
         d.attr = d.attr;
         d.value = +d.value;
     });
-	
+
   x.domain(data.map(function(d) { return d.attr; }));
   y.domain([0, 1.1*d3.max(data, function(d) { return d.value; })]);
 
@@ -77,7 +77,7 @@ d3.csv(file_name, function(error, data) {
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
-      .on("mouseover", function(d, i) { 
+      .on("mouseover", function(d, i) {
             div.transition()
                 .duration(100)
                 .style("opacity", .9);
@@ -91,7 +91,7 @@ d3.csv(file_name, function(error, data) {
                 .attr("height", function(d) { return height - y(d.value) + 10 ; })
                 .attr("width", x.rangeBand() + 10)
                 .style("fill", "red");})
-      .on("mouseout", function(d, i) { 
+      .on("mouseout", function(d, i) {
             div.transition()
                 .duration(100)
                 .style("opacity", 0);
@@ -105,4 +105,3 @@ d3.csv(file_name, function(error, data) {
                 ;});
 });
 }
-

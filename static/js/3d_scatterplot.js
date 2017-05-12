@@ -13,15 +13,15 @@ var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
     .ticks(6).tickFormat(function(d){ return d3.format(".2n")(d); });
-    
-    
+
+
 
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
     .ticks(6).tickFormat(function(d){  return d3.format(".2n")(d); });
 var file_name = ""
-if (sample_type == 0) file_name = "data/r_3attr_data.csv"; else file_name = "data/s_3attr_data.csv";
+if (sample_type == 0) file_name = ".static/data/r_3attr_data.csv"; else file_name = ".static/data/s_3attr_data.csv";
 d3.csv(file_name, function(error, data) {
   if (error) throw error;
 

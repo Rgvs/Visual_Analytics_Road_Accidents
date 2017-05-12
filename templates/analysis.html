@@ -4,17 +4,17 @@
     <title>Lab1 CSE 564</title>
     <meta charset = "utf-8"/>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/kmeans.js"></script>
     <script type="text/javascript" src="static/js/screenplot.js"></script>
     <script type="text/javascript" src="static/js/pca_loading.js"></script>
-    <script type="text/javascript" src="static/js/2d_scatterplot.js"></script>
+    <script type="text/javascript" src="static/js/2d_scatterplot.js"></script> -->
     <!--script type="text/javascript" src="static/js/3d_scatterplot.js"></script-->
     <style> /* set the CSS */
 
     body { font: 12px Arial;}
 
-    path { 
+    path {
         stroke: steelblue;
         stroke-width: 2;
         fill: none;
@@ -23,7 +23,7 @@
         fill: none;
         stroke: grey;
         stroke-width: 1;
-        
+
     }
     .axis path,
     .axis line {
@@ -32,18 +32,18 @@
         stroke-width: 1;
         shape-rendering: crispEdges;
     }
-    
-    div.tooltip {	
-        position: absolute; 
-        text-align: center;   
-        width: 150px;     
-        height: 30px;     
-        padding: 2px;    
-        font: 12px sans-serif;  
-        background: lightsteelblue; 
-        border: 0px;  
-        border-radius: 8px;   
-        pointer-events: none;   
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 150px;
+        height: 30px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
     }
     svg {
       font: 10px sans-serif;
@@ -76,33 +76,40 @@
     </style>
   </head>
   <body>
-    
+
     <div id="task" style = "float: left; margin:0px 20px 0px 0px">
-        <h4> Task 1 - kmeans Elbow  </h4>
+        <h4> kmeans Elbow  </h4>
         <button id="kmeans">Elbow plot</button>
     </div>
     <div id = "task" style = "float:left; margin: 0px 20px" >
-        <h4> Task 2 - Random Sampling </h4>
-        <button id="r_sp">Screen Plot </button>
+        <h4> Random Sampling </h4>
+        <button id="r_sp">Scree Plot </button>
         <button id="r_pca">PCA Loadings </button>
-        <h4> Task 2 - Starified Sampling</h4>
-        <button id="s_sp">Screen Plot</button>
+        <h4> TStarified Sampling</h4>
+        <button id="s_sp">Scree Plot</button>
         <button id="s_pca">PCA Loadings</button>
     </div>
     <div id = "task" style = "float:left; margin: 0px 20px" >
-        <h4> Task 3 - Random Sampling </h4>
+        <h4> TRandom Sampling </h4>
         <button id="r_2pca"> PCA </button>
         <button id="r_mds_e">MDS Euclidian </button>
         <button id="r_mds_c">MDS Correlation </button>
         <!--button id="r_sm" onclick="location.href='./index1.html';">Scatter Matrix </button-->
-        <h4> Task 3 - Starified Sampling </h4>
+        <h4> Starified Sampling </h4>
         <button id="s_2pca"> PCA </button>
         <button id="s_mds_e">MDS Euclidian </button>
         <button id="s_mds_c">MDS Correlation </button>
         <!--button id="s_sm" onclick="location.href='./index1.html';">Scatter Matrix </button-->
-        
+
     </div>
-    
+    <div id = "task" style = "float:left; margin: 0px 20px" >
+        <button><a href="/"> Back </a></button>
+    </div>
+    <script type="text/javascript" src="./static/js/main.js"></script>
+    <script type="text/javascript" src="./static/js/kmeans.js"></script>
+    <script type="text/javascript" src="./static/js/pca_loading.js"></script>
+    <script type="text/javascript" src="./static/js/screeplot.js"></script>
+    <script type="text/javascript" src="./static/js/2d_scatterplot.js"></script>
     <script type="text/javascript">
         init();
     </script>

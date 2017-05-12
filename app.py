@@ -20,6 +20,13 @@ COLLECTION_NAME = 'accidents6'
 def index():
     return render_template("index.html")
 
+@app.route("/parallel")
+def m_cluster():
+    return render_template("parallel.html")
+
+@app.route("/analysis")
+def analysis_page():
+    return render_template("analysis.html")
 
 @app.route("/accidents")
 def donorschoose_projects():

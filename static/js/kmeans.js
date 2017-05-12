@@ -19,8 +19,8 @@ var valueline = d3.svg.line()
     .y(function(d) { return y(d.error); });
 
 
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
     .style("opacity", 0);
 
 
@@ -29,10 +29,10 @@ var svg = d3.select("body")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", 
+        .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("data/kmeans.csv", function(error, data) {
+d3.csv("./static/data/kmeans.csv", function(error, data) {
     data.forEach(function(d) {
         d.nc = +d.nc;
         d.error = +d.error;
@@ -52,7 +52,7 @@ d3.csv("data/kmeans.csv", function(error, data) {
         .data(data)
     .enter().append("circle")
         .attr("r", 5)
-        .attr("cx", function(d) { return x(d.nc); }) 
+        .attr("cx", function(d) { return x(d.nc); })
         .attr("cy", function(d) { return y(d.error); })
         .on("mouseover", function(d) {
             d3.select(this).transition()
@@ -65,7 +65,7 @@ d3.csv("data/kmeans.csv", function(error, data) {
             div.html("No of clusters "+ d.nc + "<br/>"  +"Sq Error " + d.error)
                 .style("left", (d3.event.pageX + 14) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
-                
+
             })
         .on("mouseout", function(d) {
             d3.select(this).transition()
