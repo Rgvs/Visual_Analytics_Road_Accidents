@@ -34,13 +34,25 @@ stateMap = {"1": "AL", "2": "AK", "4": "AZ", "5": "AR", "6": "CA", "8": "CO", "9
 			"48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV", "55": "WI",
 			"56": "WY" }
 
+airbag = {"30": "4.Not Available", "20": "5.Not Deployed", "9": "3.From Front and Side",
+		"1": "1.From Front", "2": "2.From Side", -1: "6.Unknown"
+}
+
+restraint = {"3":"2.Shoulder And Lap Belt", "0": "1.Not Used", "4": "3.Child Belt", "9": "4.Unknown"}
+
+impact = {"0": "1.No Impact", "3": "3.Right", "6": "5.Back", "9": "4.Left", "12": "2.Front", "13": "6.Top", "14": "7.Bottom" }
+
+injury = {"0": "1.No Injury", "1": "2.Nominal", "2": "3.Minor", "3": "4.Major", "4": "5.Fatal"}
+
+sex = {"1": "Male", "2": "Female"}
+
 for d in data[1:]:
     d[2] = stateMap[d[2]]
     if(int(d[3]) < 200):
        d[3] = int(int(d[3]) / 5)*5
     else:
        d[3] = random.randint(0,18)*5
-    if d[4] in ["99", "98"]:
+    if d[4] in ["99", "98", "0"]:
         d[4] = -1
     if d[4] in ["31", "32"]:
         d[4] = "30"
@@ -48,15 +60,22 @@ for d in data[1:]:
         d[4] = "20"
     if d[4] in ["3", "7", "8"]:
         d[4] = "9"
+    
+    d[4] = airbag[d[4]]
+    
     if int(d[5]) > 4 :
         d[5] = random.randint(1,4)
+    d[5] = injury[str(d[5])]
     if d[6] in ["1", "2", "7", "8"]:
-        d[6] = 3
+        d[6] = "3"
     if int(d[6]) > 9:
-        d[6] = 9
+        d[6] = "9"
+    d[6] = restraint[str(d[6])]
     if d[7] == "9":
         d[7] = random.choice(["1", "2"])
         ##	inimpact
+    d[7] = sex[d[7]]
+    
     if (d[8] == "1" or d[8] == "2" or d[8] == "81" or d[8] == "82"):
             d[8] = "3"
     if (d[8] == "4" or d[8] == "5" or d[8] == "7" or d[8] == "8" or d[8] == "63" or d[8] == "83"):
@@ -65,6 +84,7 @@ for d in data[1:]:
             d[8] = "9"
     if (int(d[8]) > 14):
         d[8] = random.choice([3, 6, 9, 12])
+    d[8] = impact[str(d[8])]
     if (int (d[9]) == 9999):
         d[9] = random.randint(1984, 2010)
     if (int (d[9]) < 1965 ):
