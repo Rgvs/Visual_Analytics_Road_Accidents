@@ -23,6 +23,7 @@
     <h1>Visual Data Analytics</h1>
       <div class="row">
         <div class="col-sm-6">
+          <div class="row">
           <div class="chart-wrapper">
             <div class="chart-title">
               Number of Accidents over the Years
@@ -32,45 +33,32 @@
             </div>
           </div>
         </div>
-
-      <div class="col-sm-6">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Number of Accidents by Car Model Years
-          </div>
-          <div class="chart-stage">
-            <div id="mod-chart"></div>
+        <div class="row">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Number of Accidents by Car Model Years
+            </div>
+            <div class="chart-stage">
+              <div id="mod-chart"></div>
+            </div>
           </div>
         </div>
       </div>
+
+        <div class="col-sm-6">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Distribution of Accidents
+            </div>
+            <div class="chart-stage">
+              <div id="us-chart"></div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="row">
-      <div class="col-sm-6">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Restraint types
-          </div>
-          <div class="chart-stage">
-            <div id="restraint-chart"></div>
-          </div>
-        </div>
-      </div>
-
-    <div class="col-sm-6">
-      <div class="chart-wrapper">
-        <div class="chart-title">
-          Injury Severity Spread
-        </div>
-        <div class="chart-stage">
-          <div id="injury-chart"></div>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
       <div class="chart-wrapper">
         <div class="chart-title">
           Number of Accidents by Sex
@@ -91,20 +79,42 @@
       </div>
     </div>
     </div>
-  </div>
 
-  <div class="row">
-    <!-- <div class="col-sm-6">
+    <div class="col-sm-2">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Number of Accidents based on Impact Location
+          Total Accidents
         </div>
         <div class="chart-stage">
-          <div id="impact-chart"></div>
+          <div id="total-accidents-nd"></div>
         </div>
       </div>
-    </div> -->
-    <div class="col-sm-6">
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Restraint types
+          </div>
+          <div class="chart-stage">
+            <div id="restraint-chart"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Airbag Types
+          </div>
+          <div class="chart-stage">
+            <div id="airbag-chart"></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="col-sm-3">
       <div class="chart-wrapper">
         <div class="chart-title">
           Impact Locations
@@ -115,51 +125,18 @@
       </div>
     </div>
 
-  <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">
-        Airbag Types
-      </div>
-      <div class="chart-stage">
-        <div id="airbag-chart"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">
-        Number of Accidents across Airbag types
-      </div>
-      <div class="chart-stage">
-        <div id="airbag-chart"></div>
-      </div>
-    </div>
-  </div>
-</div> -->
-<div class = "row">
-    <div class="col-sm-6">
+    <div class="col-sm-3">
       <div class="chart-wrapper">
         <div class="chart-title">
-          Distribution of Accidents
+          Injury Severity Spread
         </div>
         <div class="chart-stage">
-          <div id="us-chart"></div>
+          <div id="injury-chart"></div>
         </div>
       </div>
     </div>
 
-    <div class="col-sm-3">
-      <div class="chart-wrapper">
-        <div class="chart-title">
-          Total Accidents
-        </div>
-        <div class="chart-stage">
-          <div id="total-accidents-nd"></div>
-        </div>
-      </div>
     </div>
-</div>
     <script src="./static/lib/js/jquery.min.js"></script>
     <script src="./static/lib/js/bootstrap.min.js"></script>
     <script src="./static/lib/js/crossfilter.js"></script>

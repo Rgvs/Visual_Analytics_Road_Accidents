@@ -46,15 +46,15 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   var max_state = totalByState.top(1)[0].value;
   //console.log(max_state)
-  
+
   //console.log(totalByState)
   //console.log(totalByImp)
   //console.log(yearDim)
   minDate = yearDim.bottom(1)[0]["year"]
-  maxDate = yearDim.top(1)[0]["year"]
+  maxDate = yearDim.top(1)[0]["year"] + 1
 
   minMDate = modelyrDim.bottom(1)[0]["modelyr"]
-  maxMDate = modelyrDim.top(1)[0]["modelyr"]
+  maxMDate = modelyrDim.top(1)[0]["modelyr"] + 1
 
   //console.log(minMDate)
   //console.log(maxMDate)
@@ -89,10 +89,12 @@ function makeGraphs(error, projectsJson, statesJson) {
   var injChart = dc.rowChart("#injury-chart");
 
   totalAccidentsND
+    .width(600)
+    .height(160)
 		.formatNumber(d3.format("d"))
 		.valueAccessor(function(d){return d; })
 		.group(totalAccidents)
-		.formatNumber(d3.format(".3s"));
+		.formatNumber(d3.format(".4s"));
 
   timeChart
 		.width(600)
@@ -154,7 +156,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .xAxisLabel("Age")
     .yAxis().ticks(8);
 
-sMap = {1: "Male", 2: "Female"}
+  sMap = {1: "Male", 2: "Female"}
 
   sexChart
     .width(600)
@@ -227,7 +229,7 @@ sMap = {1: "Male", 2: "Female"}
     .xAxis().ticks(4);
 
   usChart.width(1000)
-		.height(330)
+		.height(372)
 		.dimension(stateDim)
 		.group(totalByState)
     //.colors(d3.scale.category20b())
@@ -242,7 +244,7 @@ sMap = {1: "Male", 2: "Female"}
     				.translate([340, 150]))
 		.title(function (p) {
       //console.log(p)
-      console.log(statesJson["features"].findIndex(x => x.properties.name==p["key"]))
+      //console.log(statesJson["features"].findIndex(x => x.properties.name==p["key"]))
 			return "State: " + p["key"]
 					+ "\n"
 					+ "Total Accidents: " + Math.round(p["value"]) + " $";

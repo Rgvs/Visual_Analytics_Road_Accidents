@@ -1,10 +1,8 @@
-#number-projects-nd {
-    font-size: 60px;
-}
-
-#total-donations-nd {
-    font-size: 60px;
-}
+#total-accidents-nd {
+    font-size: 64px;
+    text-align: center;
+    line-height: normal;
+  }
 
 .dc-chart g.row text {
     fill: black;
