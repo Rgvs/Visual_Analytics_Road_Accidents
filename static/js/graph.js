@@ -20,6 +20,7 @@ function makeGraphs(error, projectsJson, statesJson) {
   var injuryDim = ndx.dimension(function(d) { return d["injury"]; });
   var modelyrDim = ndx.dimension(function(d) { return d["modelyr"]; });
 
+  var binwidth = 5;
   var dataByYear = yearDim.group();
   var dataByState = stateDim.group();
   var dataByImp = impactDim.group();
@@ -42,6 +43,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 	});
 
   var totalAccidents = ndx.groupAll();
+  //var totalDeaths = ndx.group();
   console.log(totalAccidents)
 
   var max_state = totalByState.top(1)[0].value;
@@ -75,6 +77,7 @@ function makeGraphs(error, projectsJson, statesJson) {
   //console.log(maxAge)
 
   var timeChart = dc.barChart("#time-chart");
+  //var timeChart = dc.lineChart("#time-chart");
   var modChart = dc.barChart("#mod-chart");
   // var sexChart = dc.barChart("#sex-chart");
   var sexChart = dc.pieChart("#sex-chart");
@@ -86,7 +89,8 @@ function makeGraphs(error, projectsJson, statesJson) {
   var usChart = dc.geoChoroplethChart("#us-chart");
   var totalAccidentsND = dc.numberDisplay("#total-accidents-nd");
   var resChart = dc.rowChart("#restraint-chart");
-  var injChart = dc.rowChart("#injury-chart");
+  //var injChart = dc.rowChart("#injury-chart");
+  var injChart = dc.pieChart("#injury-chart");
 
   totalAccidentsND
     .width(600)
@@ -97,7 +101,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 		.formatNumber(d3.format(".4s"));
 
   timeChart
-		.width(600)
+		.width(700)
 		.height(160)
 		.margins({top: 10, right: 50, bottom: 30, left: 50})
 		.dimension(yearDim)
@@ -109,7 +113,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 		.yAxis().ticks(4);
 
   modChart
-    .width(600)
+    .width(500)
     .height(160)
     .margins({top: 10, right: 50, bottom: 30, left: 50})
     .dimension(modelyrDim)
@@ -145,13 +149,15 @@ function makeGraphs(error, projectsJson, statesJson) {
 	// 	.yAxis().ticks(8);
 
   ageChart
-    .width(600)
+    .width(500)
     .height(160)
     .margins({top: 10, right: 50, bottom: 30, left: 50})
     .dimension(ageDim)
     .group(dataByAge)
     .transitionDuration(500)
     .x(d3.scale.linear().domain([minAge, maxAge]))
+    .xUnits(function(d){return 20;})
+    //.xUnits(dc.units.fp.precision(binwidth))
     .elasticY(true)
     .xAxisLabel("Age")
     .yAxis().ticks(8);
@@ -159,10 +165,10 @@ function makeGraphs(error, projectsJson, statesJson) {
   sMap = {1: "Male", 2: "Female"}
 
   sexChart
-    .width(600)
-    .height(160)
+    .width(300)
+    .height(250)
     .slicesCap(4)
-    .innerRadius(30)
+    .innerRadius(40)
     .dimension(sexDim)
     .group(dataBySex)
     .legend(dc.legend())
@@ -187,7 +193,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   impChart
     .width(300)
-    .height(200)
+    .height(250)
     .dimension(impactDim)
     .group(dataByImp)
     .elasticX(true)
@@ -206,7 +212,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 	// 	.yAxis().ticks(8);
   airbagChart
     .width(300)
-    .height(200)
+    .height(250)
     .dimension(airbagDim)
     .group(dataByAirbag)
     .elasticX(true)
@@ -214,25 +220,40 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   resChart
     .width(300)
-    .height(200)
+    .height(250)
     .dimension(restraintDim)
     .group(dataByRestraint)
     .elasticX(true)
     .xAxis().ticks(4);
 
+  // injChart
+  //   .width(300)
+  //   .height(200)
+  //   .dimension(injuryDim)
+  //   .group(dataByInjury)
+  //   .elasticX(true)
+  //   .xAxis().ticks(4);
+
   injChart
     .width(300)
-    .height(200)
+    .height(250)
+    .slicesCap(6)
+    .innerRadius(40)
     .dimension(injuryDim)
     .group(dataByInjury)
-    .elasticX(true)
-    .xAxis().ticks(4);
+    .legend(dc.legend())
+    // workaround for #703: not enough data is accessible through .label() to display percentages
+    .on('pretransition', function(chart) {
+        chart.selectAll('text.pie-slice').text(function(d) {
+            return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
+        })
+    });
 
   usChart.width(1000)
 		.height(372)
 		.dimension(stateDim)
 		.group(totalByState)
-    //.colors(d3.scale.category20b())
+    //.colors(d3.scale.category20c())
 		.colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
 		.colorDomain([0, max_state])
 		.overlayGeoJson(statesJson["features"], "state", function (d) {

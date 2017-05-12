@@ -3,6 +3,14 @@
     text-align: center;
     line-height: normal;
   }
+/*
+#age-chart {
+  .dc-chart rect.bar {
+      stroke: none;
+      cursor: pointer;
+      width: 200%;
+  }
+}*/
 
 .dc-chart g.row text {
     fill: black;

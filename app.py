@@ -10,7 +10,7 @@ app = Flask(__name__)
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'visproj_new'
-COLLECTION_NAME = 'accidents3'
+COLLECTION_NAME = 'accidents4'
 #FIELDS = {"": True, "caseid": True ,"state": True ,"age": True ,"airbag": True ,"injury": True ,
 #    "restraint": True ,"sex": True ,"inimpact": True ,"modelyr": True ,"airbagAvail": True ,"airbagDeploy": True ,
 #    "Restraint": True ,"D_injury": True ,"D_airbagAvail": True, "D_airbagDeploy": True ,"D_Restraint": True ,"year": True}
@@ -42,6 +42,10 @@ def donorschoose_projects():
     json_projects = json.dumps(json_projects, default=json_util.default)
     connection.close()
     return json_projects
+#
+# @app.route("/analysis")
+# def data_analysis:
+#
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

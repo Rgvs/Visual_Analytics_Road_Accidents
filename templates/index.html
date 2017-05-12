@@ -21,9 +21,12 @@
   </style>
   <body>
     <h1>Visual Data Analytics - Analysis of Road Accidents from 1984-2010</h1>
+    <a href="javascript:dc.filterAll(); dc.renderAll();"><h4>Reset All</h4></a>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-7">
           <div class="row">
+
+          <div class="col-sm-9">
           <div class="chart-wrapper">
             <div class="chart-title">
               Number of Accidents over the Years
@@ -33,7 +36,22 @@
             </div>
           </div>
         </div>
+
+        <div class="col-sm-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Total Accidents
+            </div>
+            <div class="chart-stage">
+              <div id="total-accidents-nd"></div>
+            </div>
+          </div>
+        </div>
+
+        </div>
         <div class="row">
+
+          <div class="col-sm-6">
           <div class="chart-wrapper">
             <div class="chart-title">
               Number of Accidents by Car Model Years
@@ -43,9 +61,22 @@
             </div>
           </div>
         </div>
+
+          <div class="col-sm-6">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Number of Accidents by Age
+            </div>
+            <div class="chart-stage">
+              <div id="age-chart"></div>
+            </div>
+          </div>
+          </div>
+
+        </div>
       </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-5">
           <div class="chart-wrapper">
             <div class="chart-title">
               Distribution of Accidents
@@ -58,7 +89,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
       <div class="chart-wrapper">
         <div class="chart-title">
           Number of Accidents by Sex
@@ -69,30 +100,8 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
-    <div class="chart-wrapper">
-      <div class="chart-title">
-        Number of Accidents by Age
-      </div>
-      <div class="chart-stage">
-        <div id="age-chart"></div>
-      </div>
-    </div>
-    </div>
 
-    <div class="col-sm-2">
-      <div class="chart-wrapper">
-        <div class="chart-title">
-          Total Accidents
-        </div>
-        <div class="chart-stage">
-          <div id="total-accidents-nd"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="chart-wrapper">
           <div class="chart-title">
             Restraint types
@@ -103,7 +112,7 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="chart-wrapper">
           <div class="chart-title">
             Airbag Types
@@ -114,7 +123,7 @@
         </div>
       </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="chart-wrapper">
         <div class="chart-title">
           Impact Locations
