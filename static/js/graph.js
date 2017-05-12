@@ -43,7 +43,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 	});
 
   var totalAccidents = ndx.groupAll();
-  //var totalDeaths = ndx.group();
+  var totalDeaths = injuryDim.top(1)[0].value;
   console.log(totalAccidents)
 
   var max_state = totalByState.top(1)[0].value;
@@ -88,21 +88,30 @@ function makeGraphs(error, projectsJson, statesJson) {
   var ageChart = dc.barChart("#age-chart");
   var usChart = dc.geoChoroplethChart("#us-chart");
   var totalAccidentsND = dc.numberDisplay("#total-accidents-nd");
+  var totalDeathsND = dc.numberDisplay("#total-deaths-nd");
   var resChart = dc.rowChart("#restraint-chart");
   //var injChart = dc.rowChart("#injury-chart");
   var injChart = dc.pieChart("#injury-chart");
 
   totalAccidentsND
     .width(600)
-    .height(160)
+    .height(200)
 		.formatNumber(d3.format("d"))
 		.valueAccessor(function(d){return d; })
 		.group(totalAccidents)
 		.formatNumber(d3.format(".4s"));
 
+  totalAccidentsND
+    .width(600)
+    .height(200)
+		.formatNumber(d3.format("d"))
+		.valueAccessor(function(d){return d; })
+		.group(totalDeaths)
+		.formatNumber(d3.format(".4s"));
+
   timeChart
 		.width(700)
-		.height(160)
+		.height(200)
 		.margins({top: 10, right: 50, bottom: 30, left: 50})
 		.dimension(yearDim)
 		.group(dataByYear)
@@ -114,7 +123,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   modChart
     .width(500)
-    .height(160)
+    .height(200)
     .margins({top: 10, right: 50, bottom: 30, left: 50})
     .dimension(modelyrDim)
     .group(dataByModyear)
@@ -150,7 +159,7 @@ function makeGraphs(error, projectsJson, statesJson) {
 
   ageChart
     .width(500)
-    .height(160)
+    .height(200)
     .margins({top: 10, right: 50, bottom: 30, left: 50})
     .dimension(ageDim)
     .group(dataByAge)
@@ -250,7 +259,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     });
 
   usChart.width(1000)
-		.height(372)
+		.height(452)
 		.dimension(stateDim)
 		.group(totalByState)
     //.colors(d3.scale.category20c())
@@ -261,8 +270,8 @@ function makeGraphs(error, projectsJson, statesJson) {
       return d.properties.name;
 		})
 		.projection(d3.geo.albersUsa()
-    				.scale(600)
-    				.translate([340, 150]))
+    				.scale(800)
+    				.translate([370, 220]))
 		.title(function (p) {
       //console.log(p)
       //console.log(statesJson["features"].findIndex(x => x.properties.name==p["key"]))
