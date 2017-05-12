@@ -1,0 +1,10 @@
+attr,value
+injury,0.489095
+age,0.486463
+sex,0.405679
+Restraint,0.367537
+airbagAvail,0.353947
+airbagDeploy,0.277211
+modelyr,0.268193
+inimpact,0.18534
+year,0.166536
