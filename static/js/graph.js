@@ -130,6 +130,7 @@ function makeGraphs(error, projectsJson, statesJson) {
     .group(dataByModyear)
     .transitionDuration(500)
     .x(d3.scale.linear().domain([minMDate, maxMDate]))
+    .xUnits(function(d){return 10;})
     .elasticY(true)
     .xAxisLabel("Model Year")
     .yAxisLabel("Accidents")

@@ -10,7 +10,7 @@ app = Flask(__name__)
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'visproj_new'
-COLLECTION_NAME = 'accidents6'
+COLLECTION_NAME = 'accidents7'
 #FIELDS = {"": True, "caseid": True ,"state": True ,"age": True ,"airbag": True ,"injury": True ,
 #    "restraint": True ,"sex": True ,"inimpact": True ,"modelyr": True ,"airbagAvail": True ,"airbagDeploy": True ,
 #    "Restraint": True ,"D_injury": True ,"D_airbagAvail": True, "D_airbagDeploy": True ,"D_Restraint": True ,"year": True}
