@@ -1,7 +1,7 @@
 import csv
 import random
 
-fp = open("static/data/FARS4.csv","r")
+fp = open("./static/data/FARS4.csv","r")
 
 data1 = fp.read().split()
 data = []
@@ -37,9 +37,9 @@ stateMap = {"1": "AL", "2": "AK", "4": "AZ", "5": "AR", "6": "CA", "8": "CO", "9
 for d in data[1:]:
     d[2] = stateMap[d[2]]
     if(int(d[3]) < 200):
-       d[3] = int(int(d[3]) / 5)
+       d[3] = int(int(d[3]) / 5)*5
     else:
-       d[3] = random.randint(0,20)
+       d[3] = random.randint(0,18)*5
     if d[4] in ["99", "98"]:
         d[4] = -1
     if d[4] in ["31", "32"]:
@@ -67,6 +67,8 @@ for d in data[1:]:
         d[8] = random.choice([3, 6, 9, 12])
     if (int (d[9]) == 9999):
         d[9] = random.randint(1984, 2010)
+    if (int (d[9]) < 1965 ):
+        d[9] = random.randint(1960, 1965)
     X = [10, 11, 12, 14, 15, 16]
     for x in X:
         #print d[x], "yes"
